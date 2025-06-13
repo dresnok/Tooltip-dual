@@ -9,7 +9,7 @@ Dwa niezależne tooltipy (A i B) prezentujące różne style oraz zachowania int
 
 
 ## 🔗 Demo
-[![Zobacz demo](https://img.shields.io/badge/🔗%20Zobacz%20Demo-blue?style=for-the-badge)](https://dresnok.github.io/Tooltip-dual/demo.html)
+[![Zobacz demo](https://img.shields.io/badge/🔗%20Zobacz%20Demo-blue?style=for-the-badge)](https://dresnok.github.io/tooltip-dual/demo.html)
 
 ## 🗂️ Struktura
 - `ss1.html` – Strona z tooltipem
