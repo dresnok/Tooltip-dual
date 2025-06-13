@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Podwójna lista linków z tooltipami</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .col-3 {
+      flex: 0 0 25%;
+      min-width: 200px;
+    }
+
+    .link-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .link-list li {
+      margin-bottom: 10px;
+    }
+
+    .link-list span {
+      cursor: pointer;
+      color: #007BFF;
+      text-decoration: underline;
+    }
+
+    /* Tooltip A */
+    #tooltip {
+      position: absolute;
+      background: #222;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      pointer-events: auto;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      max-width: 220px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    #tooltip.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #tooltip .tooltip-text {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    #tooltip a {
+      color: #00d8ff;
+      text-decoration: underline;
+      font-weight: bold;
+      display: block;
+      text-align: right;
+    }
+
+    /* Tooltip B */
+    #tooltip-music {
+      position: absolute;
+      padding: 0;
+      border-radius: 8px;
+      pointer-events: auto;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      display: inline-block;
+    }
+
+    #tooltip-music.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tooltip-content-music {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .tooltip-text-music {
+      background: #222;
+      color: #fff;
+      padding: 8px 12px;
+      white-space: nowrap;
+    }
+
+    #tooltip-link-music {
+      background: #00d8ff;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      white-space: nowrap;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+
+    #tooltip-link-music:hover {
+      background: #00bcd4;
+    }
+	
+	
+	/* test */
+	
+.tooltip-preview-a {
+  background: #222;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  max-width: 220px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  margin-top: 10px;
+}
+
+.tooltip-preview-text-a {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.tooltip-preview-a a {
+  color: #00d8ff;
+  text-decoration: underline;
+  font-weight: bold;
+  display: block;
+  text-align: right;
+}
+
+/* Styl imitacji Tooltip B */
+.tooltip-preview-b {
+  display: inline-block;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.tooltip-preview-content-b {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tooltip-preview-text-b {
+  background: #222;
+  color: #fff;
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
+.tooltip-preview-link-b {
+  background: #00d8ff;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  white-space: nowrap;
+  display: inline-block;
+  transition: background 0.2s;
+}
+
+.tooltip-preview-link-b:hover {
+  background: #00bcd4;
+}
+
+  </style>
+</head>
+<body>
+
+<div style="width:500px; margin:auto; display:flex; flex-direction:column">
+
+<div style="margin: 60px 0;">
+  <h3>Podgląd Tooltipów (statyczna wersja)</h3>
+
+  <div style="margin-bottom: 30px;">
+    <strong>Tooltip A</strong>
+    <div class="tooltip-preview-a">
+      <div class="tooltip-preview-text-a">To jest przykładowy opis tooltipa A.</div>
+      <a href="#">Otwórz</a>
+    </div>
+  </div>
+
+
+  <div>
+    <strong>Tooltip B</strong>
+    <div class="tooltip-preview-b">
+      <div class="tooltip-preview-content-b">
+        <span class="tooltip-preview-text-b">To jest przykładowy opis tooltipa B.</span>
+        <a href="#" class="tooltip-preview-link-b">Otwórz</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="row">
+  <div class="col-3">
+    <ul class="link-list">
+      <li><span data-tooltip="Portal z recenzjami sprzętu komputerowego i nowinkami technologicznymi" data-href="https://techlynx.dev">TechLynx</span></li>
+      <li><span data-tooltip="Społeczność pasjonatów hardware'u i customowych PC" data-href="https://rigforge.com">RigForge</span></li>
+      <li><span data-tooltip="Symulator budowy komputera w przeglądarce" data-href="https://buildscope.net">BuildScope</span></li>
+      <li><span data-tooltip="Baza wiedzy o podzespołach komputerowych i ich kompatybilności" data-href="https://chipnest.io">ChipNest</span></li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-3">
+    <ul class="link-list">
+      <li><span data-tooltip-music="Internetowe radio z playlistami tematycznymi" data-href-music="https://soundlounge.fm">SoundLounge</span></li>
+      <li><span data-tooltip-music="Platforma do dzielenia się beatami i remiksami" data-href-music="https://beattrail.com">BeatTrail</span></li>
+      <li><span data-tooltip-music="Twórz miksy online i udostępniaj znajomym" data-href-music="https://mixboard.net">MixBoard</span></li>
+      <li><span data-tooltip-music="Wirtualna kolekcja muzyki i podcastów" data-href-music="https://audiopark.io">AudioPark</span></li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<div id="tooltip">
+  <div class="tooltip-text" id="tooltip-text">Opis</div>
+  <a href="#" target="_blank" id="tooltip-link">Otwórz</a>
+</div>
+
+
+<div id="tooltip-music">
+  <div class="tooltip-content-music">
+    <span class="tooltip-text-music" id="tooltip-text-music">Opis</span>
+    <a href="#" target="_blank" id="tooltip-link-music">Otwórz</a>
+  </div>
+</div>
+
+<script>
+
+const tooltip = document.getElementById('tooltip');
+const tooltipText = document.getElementById('tooltip-text');
+const tooltipLink = document.getElementById('tooltip-link');
+let hideTimeout;
+
+document.querySelectorAll('[data-tooltip]').forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout);
+    const text = link.getAttribute('data-tooltip');
+    const href = link.getAttribute('data-href');
+    tooltipText.textContent = text;
+    tooltipLink.setAttribute('href', href);
+    tooltip.style.visibility = 'hidden';
+    tooltip.style.opacity = '0';
+    tooltip.classList.add('show');
+
+    const rect = link.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+    const scrollTop = window.scrollY;
+    const scrollLeft = window.scrollX;
+
+    let top = scrollTop + rect.top - tooltipRect.height - 8;
+    if (top < scrollTop + 10) top = scrollTop + rect.bottom + 8;
+
+    let left = scrollLeft + rect.left + (rect.width - tooltipRect.width) / 2;
+    left = Math.max(10, Math.min(left, scrollLeft + document.documentElement.clientWidth - tooltipRect.width - 10));
+
+    tooltip.style.top = `${top}px`;
+    tooltip.style.left = `${left}px`;
+    tooltip.style.visibility = 'visible';
+    tooltip.style.opacity = '';
+  });
+
+  link.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      tooltip.classList.remove('show');
+      tooltip.style.visibility = 'hidden';
+    }, 200);
+  });
+
+  tooltip.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+  tooltip.addEventListener('mouseleave', () => {
+    tooltip.classList.remove('show');
+    tooltip.style.visibility = 'hidden';
+  });
+});
+
+
+const tooltip2 = document.getElementById('tooltip-music');
+const tooltipText2 = document.getElementById('tooltip-text-music');
+const tooltipLink2 = document.getElementById('tooltip-link-music');
+let hideTimeout2;
+
+document.querySelectorAll('[data-tooltip-music]').forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout2);
+    const text = link.getAttribute('data-tooltip-music');
+    const href = link.getAttribute('data-href-music');
+    tooltipText2.textContent = text;
+    tooltipLink2.setAttribute('href', href);
+    tooltip2.style.visibility = 'hidden';
+    tooltip2.style.opacity = '0';
+    tooltip2.classList.add('show');
+
+    const rect = link.getBoundingClientRect();
+    const tooltipRect = tooltip2.getBoundingClientRect();
+    const scrollTop = window.scrollY;
+    const scrollLeft = window.scrollX;
+
+    let top = scrollTop + rect.top - tooltipRect.height - 8;
+    if (top < scrollTop + 10) top = scrollTop + rect.bottom + 8;
+
+    let left = scrollLeft + rect.left + (rect.width - tooltipRect.width) / 2;
+    left = Math.max(10, Math.min(left, scrollLeft + document.documentElement.clientWidth - tooltipRect.width - 10));
+
+    tooltip2.style.top = `${top}px`;
+    tooltip2.style.left = `${left}px`;
+    tooltip2.style.visibility = 'visible';
+    tooltip2.style.opacity = '';
+  });
+
+  link.addEventListener('mouseleave', () => {
+    hideTimeout2 = setTimeout(() => {
+      tooltip2.classList.remove('show');
+      tooltip2.style.visibility = 'hidden';
+    }, 200);
+  });
+
+  tooltip2.addEventListener('mouseenter', () => clearTimeout(hideTimeout2));
+  tooltip2.addEventListener('mouseleave', () => {
+    tooltip2.classList.remove('show');
+    tooltip2.style.visibility = 'hidden';
+  });
+});
+</script>
+
+</body>
+</html>
+
+
